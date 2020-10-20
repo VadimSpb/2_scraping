@@ -1,0 +1,2 @@
+список юзерагентов:
+http://user-agents.my-addr.com/user_agent_request/user_agent_examples-and-user_agent_types.php
