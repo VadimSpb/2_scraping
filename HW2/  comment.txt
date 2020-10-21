@@ -1,0 +1,9 @@
+список юзерагентов:
+http://user-agents.my-addr.com/user_agent_request/user_agent_examples-and-user_agent_types.php
+
+Тестер для HH_parcer:
+vacancy_name = 'sql'
+df = HH_parcer(vacancy_name)
+
+df.to_csv('hh.csv', index=False, header=True, encoding='utf-8')
+print()
