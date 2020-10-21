@@ -9,9 +9,10 @@ def getpage(url, headers=headers, params=None):
 	responce = requests.get(url, headers=headers, params=params)
 
 	# проверяем доступность страницы
-	if html.status_code is not requests.codes.ok:
+	if responce.status_code is not requests.codes.ok:
 		print('Страница ' + html.url + ' не доступна')
-		break
+
+
 	# делаем объект bs
 	soup = BS(responce.text, 'lxml')
 

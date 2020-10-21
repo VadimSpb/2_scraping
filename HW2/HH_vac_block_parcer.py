@@ -1,31 +1,52 @@
-from bs4 import BeautifulSoup as BS
 import re
 
 
 def get_info(vacancy):
-    name = vacancy.find_all('a', href=True)[0].text  # наименование вакансии
-    salaryblock = vacancy.find('div', class_="vacancy-serp-item__compensation").text
 
-    if salaryblock[:2] == 'от':
-        salary_min = ''.join(re.findall(r'[0-9]', salaryblock))
-        salary_max = None
+    # наименование вакансии
+    name = vacancy.find_all('a', href=True)[0].text
 
-    elif salaryblock[:2] == 'до':
-        salary_min = None
-        salary_max = ''.join(re.findall(r'[0-9]', salaryblock))
+    # зарплата:
+    salary_tags = {'class': 'bloko-section-header-3 bloko-section-header-3_lite',
+                   'data-qa': 'vacancy-serp__vacancy-compensation'}
 
-    else:
-        salary = salaryblock.split('-')
+    try:
+        salaryblock = vacancy.find('span', salary_tags).text
 
-        if len(salary) == 1:
-            salary_min = salary[0]
-            salary_max = salary[0]
+
+        if salaryblock[:2] == 'от':
+            salary_min = ''.join(re.findall(r'[0-9]', salaryblock))
+            salary_max = None
+
+        elif salaryblock[:2] == 'до':
+            salary_min = None
+            salary_max = ''.join(re.findall(r'[0-9]', salaryblock))
 
         else:
-            salary_min = ''.join(re.findall(r'[0-9]', salary[0]))
-            salary_max = ''.join(re.findall(r'[0-9]', salary[-1]))
+            salary = salaryblock.split('-')
 
-    currency = salaryblock[-4:]
+            if len(salary) == 1:
+                salary_min = salary[0]
+                salary_max = salary[0]
+
+            else:
+                salary_min = ''.join(re.findall(r'[0-9]', salary[0]))
+                salary_max = ''.join(re.findall(r'[0-9]', salary[-1]))
+
+        salary_min = int(salary_min)
+        salary_max = int(salary_max)
+        currency = salaryblock[-4:]
+
+    except:
+        salary_min = None
+        salary_max = None
+        currency = None
+
+    # Ссылка
     link = vacancy.find_all('a', href=True)[0].get('href')
-    employer = vacancy.findAll(class_="bloko-link bloko-link_secondary")
+
+    #  Работодатель
+    # employers_tags = {"class": "bloko-link bloko-link_secondary", "data-qa": "vacancy-serp__vacancy-employer"}
+    # employer = vacancy.find("a", employers_tags).text
+    employer = vacancy.find(class_="bloko-link bloko-link_secondary").text
     return name, salary_min, salary_max, currency, link, employer

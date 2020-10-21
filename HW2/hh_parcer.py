@@ -1,15 +1,15 @@
 import pandas as pd
 import time
 
-from .vac_name_cleener import vac_name_cleener
-from .HH_vac_block_parcer import get_info
-from .getpage import getpage
+from vac_name_cleener import vac_name_cleener
+from HH_vac_block_parcer import get_info
+from getpage import getpage
 
 
 def HH_parcer(vacancy_name):
+
     # Создаем списки целевых показателей:
     vacancy_list = []
-    # salary_list = [] !!!!!!!!DEL
     min_salary = []
     max_salary = []
     url_list = []
@@ -45,7 +45,6 @@ def HH_parcer(vacancy_name):
         time.sleep(1);
 
     s_vacancy_list = pd.Series(vacancy_list)
-    # s_salary_list = pd.Series(salary_list) ###DEL
     s_min_salary = pd.Series(min_salary)
     s_max_salary = pd.Series(max_salary)
     s_currency_list = pd.Series(currency_list)
@@ -56,7 +55,6 @@ def HH_parcer(vacancy_name):
     # Создаем результирующий датафрейм
     df = pd.DataFrame()
     df['vacancy'] = s_vacancy_list
-    # df['salary'] = salary_list !!!!!DEL
     df['min_salary'] = s_min_salary
     df['max_salary'] = s_max_salary
     df['currency'] = s_currency_list
@@ -67,9 +65,3 @@ def HH_parcer(vacancy_name):
     return df
 
 
-### DELETE IT!!!!
-vacancy_name = 'sql'
-df = HH_parcer(vacancy_name)
-
-# df.to_csv('hh.csv', index=False, header=True, encoding='utf-8')
-print()
