@@ -46,7 +46,5 @@ def get_info(vacancy):
     link = vacancy.find_all('a', href=True)[0].get('href')
 
     #  Работодатель
-    # employers_tags = {"class": "bloko-link bloko-link_secondary", "data-qa": "vacancy-serp__vacancy-employer"}
-    # employer = vacancy.find("a", employers_tags).text
     employer = vacancy.find(class_="bloko-link bloko-link_secondary").text
     return name, salary_min, salary_max, currency, link, employer
