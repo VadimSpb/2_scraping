@@ -47,4 +47,5 @@ def get_info(vacancy):
 
     #  Работодатель
     employer = vacancy.find(class_="bloko-link bloko-link_secondary").text
+    print(f'{name, salary_min, salary_max, currency, link, employer} is parced')
     return name, salary_min, salary_max, currency, link, employer
