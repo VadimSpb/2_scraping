@@ -1,7 +1,7 @@
 import pandas as pd
 import time
 
-from vac_name_cleener import vac_name_cleener
+from name_cleener import hh_name_cleener
 from HH_vac_block_parcer import get_info
 from getpage import getpage
 
@@ -18,9 +18,9 @@ def HH_parcer(vacancy_name):
     employer_list = []
     pages = 1  # !!!!!!!!!!!!!!!!!!!!!!!!!
 
-    domain = 'hh.ru'
+    domain = 'https://www.hh.ru'
     main_link = 'https://hh.ru/search/vacancy?text='
-    vacancy_name = vac_name_cleener(vacancy_name)
+    vacancy_name = hh_name_cleener(vacancy_name)
 
     for pg_num in range(0, pages):
 
