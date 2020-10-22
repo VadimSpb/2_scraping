@@ -7,3 +7,7 @@ df = HH_parcer(vacancy_name)
 
 df.to_csv('hh.csv', index=False, header=True, encoding='utf-8')
 print()
+
+Cохранить в html:
+with open("output1.html", "w") as file:
+    file.write(str(soup))
