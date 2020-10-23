@@ -46,6 +46,7 @@ def get_info(vacancy):
     link = vacancy.find_all('a', href=True)[0].get('href')
 
     #  Работодатель
-    employer = vacancy.find(class_="bloko-link bloko-link_secondary").text
-    print(f'{name, salary_min, salary_max, currency, link, employer} is parced')
+    #employer = vacancy.find(class_="bloko-link bloko-link_secondary").text
+    employer = vacancy.find(data-qa_="vacancy-serp__vacancy-employer").text
+    #print(f'{name, salary_min, salary_max, currency, link, employer} is parced')
     return name, salary_min, salary_max, currency, link, employer
