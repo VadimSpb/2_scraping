@@ -6,7 +6,7 @@ from HH_vac_block_parcer import get_info
 from getpage import getpage
 
 
-def HH_parcer(vacancy_name):
+def hh_page_parcer(vacancy_name):
 
     # Создаем списки целевых показателей:
     vacancy_list = []
@@ -64,4 +64,5 @@ def HH_parcer(vacancy_name):
 
     return df
 
+def hh_parcer(vacancy_name):
 
