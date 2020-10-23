@@ -46,7 +46,18 @@ def get_info(vacancy):
     link = vacancy.find_all('a', href=True)[0].get('href')
 
     #  Работодатель
-    #employer = vacancy.find(class_="bloko-link bloko-link_secondary").text
-    employer = vacancy.find(data-qa_="vacancy-serp__vacancy-employer").text
+    if vacancy.find('a', {'class': 'bloko-link bloko-link_secondary'}) is None:
+        try:
+            employer = vacancy.find('a', {'class': 'vacancy-serp-item__meta-info'}).text
+            print(f"Warning! Untypical class for employer info.")
+        except:
+            bag_file_name = name + '.html'
+            with open(bag_file_name, "w") as file:
+                file.write(str(vacancy))
+            print(f"Warning! Employer wasn't found. HTML was saved in {bag_file_name}")
+            employer = None
+    else:
+        employer = vacancy.find('a', {'class': 'bloko-link bloko-link_secondary'}).text
+
     #print(f'{name, salary_min, salary_max, currency, link, employer} is parced')
     return name, salary_min, salary_max, currency, link, employer

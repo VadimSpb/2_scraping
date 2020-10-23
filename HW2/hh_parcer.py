@@ -47,7 +47,7 @@ def hh_page_parcer(link):
 
     # обрабатываем пейджератор
     try:
-        next_link = domain + bsObj.find(text='Дальше').parent.parent.parent.parent['href']
+        next_link = domain + soup.find('a', {'data-qa':'pager-next'})['href']
     except:
         next_link = None
 
@@ -57,12 +57,12 @@ def hh_page_parcer(link):
 def hh_parcer(vacancy_name):
     # Запускаем проход по страницам:
     df = pd.DataFrame()
-    link_suffix = main_link = '/search/vacancy?text='
+    link_suffix = '/search/vacancy?text='
     link = domain + link_suffix + hh_name_cleener(vacancy_name)
     res, link = hh_page_parcer(link)
     df = pd.concat([res, df], ignore_index=True)
     while link:
-        res, link = sj_page_parcer(link)
+        res, link = hh_page_parcer(link)
         df = pd.concat([res, df], ignore_index=True)
     print(f'{len(df)} vacancies was found')
     return df
