@@ -113,4 +113,3 @@ def sj_parcer(vacancy_name):
         df = pd.concat([res, df], ignore_index=True)
     print(f'{len(df)} vacancies was found')
     return df
-
