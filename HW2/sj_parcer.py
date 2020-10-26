@@ -5,20 +5,11 @@ import time
 from getpage import getpage
 from name_cleener import sj_name_cleener
 
+domain = 'https://www.superjob.ru'
 
-def sj_parcer(vacancy_name):
 
-    ### Временное
-    vacancy_name = "c#"
-    pg_num = 0
-    ###
-
-    # создаем запрос и получаем ответ
-    domain = 'https://www.superjob.ru'
-    main_link = 'https://www.superjob.ru/vacancy/search/?keywords='
-    page = str(pg_num)
-    link = main_link + sj_name_cleener(vacancy_name) + '&page=' + str(page)
-    print(f'Conneting to page № {pg_num}. {link}')
+def sj_page_parcer(link):
+    print(f'Conneting to page {link}')
     bsObj = getpage(link)
 
     # создаем список элементов с названиями вакансий и  URL
@@ -35,7 +26,7 @@ def sj_parcer(vacancy_name):
 
     # создаем список работодателей
     employer_list = []
-    employer_block = bsObj.findAll(class_=employer_re)
+    employer_block = bsObj.findAll(class_='f-test-text-vacancy-item-company-name')
 
     for i, employer in enumerate(employer_block):
         employer_list.append(employer_block[i].getText())
@@ -90,7 +81,7 @@ def sj_parcer(vacancy_name):
         max_salary.append(salary_max)
         currency_list.append(currency)
 
-    # Создаем результирующий датафрейм
+    # Создаем результирующий датaфрейм
     df = pd.DataFrame()
     df['vacancy'] = pd.Series(vacancy_list)
     df['min_salary'] = pd.Series(min_salary)
@@ -99,5 +90,26 @@ def sj_parcer(vacancy_name):
     df['url'] = pd.Series(url_list)
     df['source'] = pd.Series(source_name_list)
     df['employer'] = pd.Series(employer_list)
+
+    # обрабатываем пейджератор
+    try:
+        next_link = domain + bsObj.find(text='Дальше').parent.parent.parent.parent['href']
+    except:
+        next_link = None
+
     time.sleep(1)
+    return df, next_link
+
+
+def sj_parcer(vacancy_name):
+    # Запускаем проход по страницам:
+    df = pd.DataFrame()
+    link_suffix = '/vacancy/search/?keywords='
+    link = domain + link_suffix + sj_name_cleener(vacancy_name)
+    res, link = sj_page_parcer(link)
+    df = pd.concat([res, df], ignore_index=True)
+    while link:
+        res, link = sj_page_parcer(link)
+        df = pd.concat([res, df], ignore_index=True)
+    print(f'{len(df)} vacancies was found')
     return df
