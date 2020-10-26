@@ -19,6 +19,21 @@ def hh_page_parcer(link):
     source_name_list = []
     employer_list = []
 
+
+    pages = 1  # !!!!!!!!!!!!!!!!!!!!!!!!!
+
+    domain = 'https://www.hh.ru'
+    main_link = 'https://hh.ru/search/vacancy?text='
+    vacancy_name = hh_name_cleener(vacancy_name)
+
+    for pg_num in range(0, pages):
+
+        # создаем запрос и получаем ответ
+        page = str(pg_num)
+        link = main_link + vacancy_name + '&page=' + page
+        soup = getpage(link)
+
+
     print(f'Conneting to page {link}')
     soup = getpage(link)
 
