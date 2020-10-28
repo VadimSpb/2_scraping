@@ -1,3 +1,6 @@
 # Project exclude paths
 /venv/
 comment.txt
+/hw4/old_ver/
+hw4/Notebook.ipynb
+
