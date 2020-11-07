@@ -10,9 +10,9 @@
 BOT_NAME = 'booksparser'
 
 #указание директорий
-SPIDER_MODULES = ['booksparser.spiders']
+SPIDER_MODULES = ['hw6.booksparser.spiders']
 # указание места создания паука командой genspider
-NEWSPIDER_MODULE = 'booksparser.spiders'
+NEWSPIDER_MODULE = 'hw6.booksparser.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -67,7 +67,7 @@ LOG_LEVEL = 'DEBUG'
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'booksparser.pipelines.BooksparserPipeline': 300,
+   'hw6.booksparser.pipelines.BooksparserPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
