@@ -21,13 +21,13 @@ class LabirintruSpider(scrapy.Spider):
     def book_parse(self, response: HtmlResponse):
         link = response.url
         name = response.xpath("//h1/text()").extract_first()
-        # Авторов может быть много!!!
         author = response.xpath("//div[@class='authors']/a[@data-event-label='author']/text()").extract()
-        # проверить результат !!!
         reg_price = response.xpath("//span[contains(@class, 'number')]/text()").extract_first()
         promo_price = response.xpath("//span[@class='buying-pricenew-val-number']/text()").extract_first()
         rating = response.xpath("//div[@id='rate']/text()").extract_first()
-        yield BooksparserItem(link=link,
+        isbn = response.xpath("//div[@class='isbn']/text()").extract_first()
+        yield BooksparserItem(_id=isbn,
+                              link=link,
                               name=name,
                               author=author,
                               reg_price=reg_price,

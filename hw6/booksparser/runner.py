@@ -5,7 +5,7 @@ from hw6.booksparser import settings
 from hw6.booksparser.spiders.labirintru import LabirintruSpider
 from hw6.booksparser.spiders.book24 import Book24ruSpider
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     clawler_setting = Settings()
     clawler_setting.setmodule(settings)
 
