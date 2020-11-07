@@ -17,7 +17,17 @@ class BookparserPipeline:
 
     def process_item(self, item, spider):
         collection = self.db[spider.name]
-        if spider.name == 'book24ru':
+
+        if spider.name == 'labirintru':
+            item['name'] = item['name'].split(':')[-1].lstrip()
+            if item['reg_price']:
+                item['reg_price'] = float(item['reg_price'])
+            if item['promo_price']:
+                item['promo_price'] = float(item['promo_price'])
+            if item['rating']:
+                item['rating'] = float(item['rating'])
+
+        elif spider.name == 'book24ru':
             if not item['reg_price']:
                 item['reg_price'] = float(re.sub('[^\d]', '', item['promo_price']))
                 item['promo_price'] = None
@@ -26,14 +36,6 @@ class BookparserPipeline:
                 item['promo_price'] = float(re.sub('[^\d]', '', item['promo_price']))
             if item['rating']:
                 item['rating'] = float(item['rating'].replace(',', '.'))
-        elif spider.name == 'labirintru':
-            item['name'] = item['name'].split(':')[-1].lstrip()
-            if item['reg_price']:
-                item['reg_price'] = float(item['reg_price'])
-            if item['promo_price']:
-                item['promo_price'] = float(item['promo_price'])
-            if item['rating']:
-                item['rating'] = float(item['rating'])
 
         print(item)
         collection.insert_one(item)
