@@ -9,8 +9,8 @@
 
 BOT_NAME = 'leroymerlin'
 
-SPIDER_MODULES = ['leroymerlin.leroymerlin.spiders']
-NEWSPIDER_MODULE = 'leroymerlin.leroymerlin.spiders'
+SPIDER_MODULES = ['hw7.leroymerlin.spiders']
+NEWSPIDER_MODULE = 'hw7.leroymerlin.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

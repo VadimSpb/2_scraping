@@ -12,7 +12,7 @@ class LeroymerlinruSpider(scrapy.Spider):
         self.start_urls = [f'https://www.leroymerlin.ru/search/?q={search}']
 
     def parse(self, response: HtmlResponse):
-        tools = response.xpath('//product-card/@data-product-url')
+        tools = response.xpath("//a[@slot='name']/@href")
         next_page = response.xpath("//a[@rel='next']/@href").extract_first()
         for tool in tools:
             yield response.follow(tool, callback=self.parse_tool)
