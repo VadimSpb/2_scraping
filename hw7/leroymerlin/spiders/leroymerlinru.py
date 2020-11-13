@@ -12,19 +12,19 @@ class LeroymerlinruSpider(scrapy.Spider):
         self.start_urls = [f'https://www.leroymerlin.ru/search/?q={search}']
 
     def parse(self, response: HtmlResponse):
-        tools = response.xpath("//a[@slot='name']/@href")
+        tools = response.xpath("//a[@slot='name']/@href").extract()
         next_page = response.xpath("//a[@rel='next']/@href").extract_first()
         for tool in tools:
             yield response.follow(tool, callback=self.parse_tool)
         if next_page:
             yield response.follow(next_page, callback=self.parse)
-        pass
+
 
     def parse_tool(self, response: HtmlResponse):
         loader = ItemLoader(item=LeroymerlinItem(), response=response)
         loader.add_xpath('title', "//h1/text()")
-        loader.add_xpath('photos', "//picture[@slot='pictures']/source[@itemprop='image' "
-                                   "and @media=' only screen and (min-width: 1024px)']/@srcset")
+        loader.add_xpath('photos',
+                         "//picture[@slot='pictures']/source[@media=' only screen and (min-width: 1024px)']/@srcset")
         loader.add_xpath('characters', "//div[@class='def-list__group']")
         loader.add_value('link', response.url)
         loader.add_xpath('price', "//span[@slot='price']/text()")

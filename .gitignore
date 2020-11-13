@@ -2,5 +2,29 @@
 /venv/
 comment.txt
 /hw4/old_ver/
-hw4/Notebook.ipynb
-hw5/DmitriyEKonovalov.py
+./hw4/Notebook.ipynb
+./hw5/DmitriyEKonovalov.py
+./hw8/instagram/insta_auth.py
+
+
+
+
+Будет удалено .DS_Store
+Будет удалено hw2/.DS_Store
+Будет удалено hw3/.DS_Store
+Будет удалено "hw3/.ipynb_checkpoints/Icon\r"
+Будет удалено "hw3/Icon\r"
+Будет удалено hw3/__pycache__/
+Будет удалено hw4/__pycache__/
+Будет удалено hw6/.DS_Store
+Будет удалено hw6/__pycache__/
+Будет удалено hw6/booksparser/.DS_Store
+Будет удалено hw6/booksparser/__pycache__/
+Будет удалено hw6/booksparser/spiders/__pycache__/
+Будет удалено hw7/.DS_Store
+Будет удалено hw7/leroymerlin/.DS_Store
+Будет удалено hw7/leroymerlin/__pycache__/
+Будет удалено hw7/leroymerlin/images/
+Будет удалено hw7/leroymerlin/spiders/__pycache__/
+Будет удалено hw8/instagram/__pycache__/
+Будет удалено hw8/instagram/spiders/__pycache__/
